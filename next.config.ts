@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ['localhost', 'back-qkps.onrender.com/'], // Replace with your actual image host
+  },
 };
 
 export default nextConfig;

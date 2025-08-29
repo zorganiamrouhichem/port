@@ -1,12 +1,14 @@
+// src/app/components/ImageGallery.tsx
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-type Image = {
+type ImageType = {
   id: string;
   image_url: string;
 };
 
 export default function ImageGallery() {
-  const [images, setImages] = useState<Image[]>([]);
+  const [images, setImages] = useState<ImageType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,14 +21,18 @@ export default function ImageGallery() {
         if (!res.ok) throw new Error('Failed to fetch images');
         const data = await res.json();
         setImages(data);
-      } catch (err: any) {
-        setError(err.message || 'Unknown error');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Unknown error');
+        }
       } finally {
         setLoading(false);
       }
     }
 
-    fetchImages(); // fetch immediately on mount
+    fetchImages();
   }, []);
 
   if (loading) return <p>Loading images...</p>;
@@ -37,7 +43,15 @@ export default function ImageGallery() {
       <h3>All Uploaded Images</h3>
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         {images.map((img) => (
-          <img key={img.id} src={img.image_url} alt="Uploaded" style={{ width: 200 }} />
+          <div key={img.id} style={{ width: 200, height: 150, position: 'relative' }}>
+            <Image
+              src={img.image_url}
+              alt="Uploaded"
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 768px) 100vw, 200px"
+            />
+          </div>
         ))}
       </div>
     </div>

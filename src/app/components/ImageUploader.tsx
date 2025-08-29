@@ -1,5 +1,5 @@
-// components/ImageUploader.tsx
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function ImageUploader() {
   const [file, setFile] = useState<File | null>(null);
@@ -17,20 +17,24 @@ export default function ImageUploader() {
     const formData = new FormData();
     formData.append('file', file);
 
-   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/upload`, {
-  method: 'POST',
-  body: formData,
-});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/images/upload`, {
+      method: 'POST',
+      body: formData,
+    });
 
-if (!res.ok) {
-  const errorText = await res.text();
-  console.error('Upload failed:', res.status, errorText);
-  return;
-}
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error('Upload failed:', res.status, errorText);
+      return;
+    }
 
-const data = await res.json();
-console.log('Upload successful:', data);
-  }
+    const data = await res.json();
+    console.log('Upload successful:', data);
+
+    if (data.image_url) {
+      setImageUrl(data.image_url);
+    }
+  };
 
   return (
     <div>
@@ -38,9 +42,15 @@ console.log('Upload successful:', data);
       <button onClick={handleUpload}>Upload</button>
 
       {imageUrl && (
-        <div>
+        <div style={{ marginTop: '1rem', position: 'relative', width: '100%', maxWidth: 600, height: 400 }}>
           <h3>Uploaded Image:</h3>
-          <img src={imageUrl} alt="Uploaded" style={{ maxWidth: '100%', height: 'auto' }} />
+          <Image
+            src={imageUrl}
+            alt="Uploaded"
+            fill
+            style={{ objectFit: 'contain' }}
+            priority // optional, for better loading priority
+          />
         </div>
       )}
     </div>
