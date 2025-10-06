@@ -7,16 +7,21 @@ module.exports = {
   ],
   theme: {
     extend: {
-      animation: {
-        'scroll-left': 'scrollLeft 30s linear infinite',
+       fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        colors: {
+        'custom-black': '#0b0b0b',
       },
-      keyframes: {
-        scrollLeft: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-100%)' },
-        },
+      },
+      fontSize: {
+        '28px': '28px',
+        '18px': '18px',
       },
     },
   },
-  plugins: [],
+  plugins: [
+  require('tailwind-scrollbar-hide')
+]
+
 }

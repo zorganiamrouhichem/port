@@ -1,20 +1,15 @@
+import Navbar from "@/app/components/Navbar";
 
-import "./globals.css";
-
-
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html >
-      <body
-      >
       <div className="">
+        <Navbar/>
         {children}
       </div>
-      </body>
-    </html>
+     
   );
 }
