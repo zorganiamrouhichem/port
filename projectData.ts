@@ -8,6 +8,7 @@ export type Project = {
   liveDemoUrl?: string;
   imagePrimary: string;
   imageUrls: string[];
+    videoUrl?: string; // 👈 Add this
 };
 
 export const projectData: Project[] = [
@@ -15,7 +16,7 @@ export const projectData: Project[] = [
     id: 1,
     projectName: "Admin Panel for Podcaster",
      shortDescription: "Admin dashboard for managing podcasts, blogs, and events with SEO support and object storage integration.", // 👈 Added
-
+    videoUrl: "https://player.vimeo.com/video/1098545711", 
     description: [
   "One of my recent projects involved developing an admin panel for the blog of a podcaster and public speaker. The platform is designed to manage podcast episodes, upcoming events, and blog articles—all from a single, intuitive admin interface.",
   "The project uses DigitalOcean's S3-compatible object storage to host podcast episode files in MP3 format. The admin can manage each episode's title, description, and slug (which defines the podcast's URL on the blog), providing full control over SEO.",
@@ -41,7 +42,7 @@ export const projectData: Project[] = [
     id: 2,
     projectName: "Cycling Club Website",
         shortDescription: "Admin dashboard for managing podcasts, blogs, and events with SEO support and object storage integration.", // 👈 Added
-
+ videoUrl: "https://player.vimeo.com/video/1100960873", 
  description: [
   "A cycling club website to publish rides, where riders can join them. Built with Next.js, NestJS, and Mapbox.",
   "The coach (admin) can publish rides with detailed routes drawn directly on a map. Riders (users) can browse available rides and join them easily.",
